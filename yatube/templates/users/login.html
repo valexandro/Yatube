@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+  Войти
+{% endblock title %}
+{% block content %}
+  {% with card_header='Выход' has_form=True button_name='Войти' %}
+    {% include 'users/includes/card.html' %}
+  {% endwith %}
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <a href="{% url 'users:password_reset' %}" class="btn btn-link">
+          Забыли пароль?
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

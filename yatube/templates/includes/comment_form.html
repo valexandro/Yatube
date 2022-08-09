@@ -1,0 +1,10 @@
+<div class="card my-4">
+  <h5 class="card-header">Добавить комментарий:</h5>
+  <div class="card-body">
+    <form action="{% url 'posts:add_comment' post.id %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+  </div>
+</div>
