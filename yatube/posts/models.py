@@ -10,7 +10,7 @@ User: Type[AbstractBaseUser] = get_user_model()
 
 
 class Group(models.Model):
-    """Модель групп."""
+    """Модель группы, к которой может относиться пост."""
 
     title = models.CharField(
         max_length=200, verbose_name='Название')
@@ -18,7 +18,7 @@ class Group(models.Model):
     description = models.TextField(verbose_name='Описание')
 
     class Meta:
-        """Метаданные модели групп."""
+        """Метаданные."""
 
         verbose_name: str = 'Группа'
         verbose_name_plural: str = 'Группы'
@@ -29,7 +29,7 @@ class Group(models.Model):
 
 
 class Post(CreatedModel):
-    """Модель постов."""
+    """Модель поста."""
 
     text: models.TextField = models.TextField(
         verbose_name='Текст поста',
@@ -56,7 +56,7 @@ class Post(CreatedModel):
     )
 
     class Meta:
-        """Метаданные модели постов."""
+        """Метаданные."""
 
         ordering: Tuple[str] = ('-created', )
         verbose_name: str = 'Пост'
@@ -90,4 +90,21 @@ class Comment(CreatedModel):
     )
     text = models.TextField(
         verbose_name='Текст комментария',
+    )
+
+
+class Follow(models.Model):
+    """Модель подписок на посты других авторов."""
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='follower',
+        verbose_name='Пользователь',
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        verbose_name='Автор',
     )
