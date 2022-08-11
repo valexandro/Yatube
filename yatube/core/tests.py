@@ -1,11 +1,13 @@
 from http import HTTPStatus
 
+from django.core.cache import cache
 from django.test import Client, TestCase
 
 
 class ErrorPagesTemplatesTest(TestCase):
     def setUp(self):
         self.guest_client = Client()
+        cache.clear()
 
     def test_404_error_uses_correct_template(self):
         """Страница 404 ошибки использует нужный шаблон."""
