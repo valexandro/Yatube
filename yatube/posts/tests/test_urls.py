@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser
+from django.core.cache import cache
 from django.test import Client, TestCase
 
 from ..models import Group, Post
@@ -10,6 +11,9 @@ User = get_user_model()
 
 
 class PostsURLTests(TestCase):
+    def tearDown(self):
+        cache.clear()
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -41,9 +45,30 @@ class PostsURLTests(TestCase):
         cls.post_1_detail_url = f'/posts/{cls.post_1_user_1.id}/'
         cls.user_1_detail_url = f'/profile/{cls.user_1.username}/'
         cls.post_1_add_comment_url = f'/posts/{cls.post_1_user_1.id}/comment/'
+        cls.followed_posts = '/follow/'
+        cls.follow_user_2 = f'/profile/{cls.user_2.username}/follow/'
+        cls.unfollow_user_2 = f'/profile/{cls.user_2.username}/unfollow/'
 
-    def test_urls_uses_correct_template_and_available(self):
-        """URL-адрес использует соответствующий шаблон и доступен."""
+    def test_urls_available(self):
+        """URL-адрес доступен."""
+        url_list = [
+            self.index_url,
+            self.post_create_url,
+            self.post_1_edit_url,
+            self.group_url,
+            self.post_1_detail_url,
+            self.user_1_detail_url,
+            self.followed_posts,
+            self.follow_user_2,
+            self.unfollow_user_2,
+        ]
+        for address in url_list:
+            with self.subTest(address=address):
+                response = self.authorized_user_1.get(address)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_urls_uses_correct_template(self):
+        """URL-адрес использует соответствующий шаблон."""
         url_template_names = {
             self.index_url: 'posts/index.html',
             self.post_create_url: 'posts/create_post.html',
@@ -51,12 +76,12 @@ class PostsURLTests(TestCase):
             self.group_url: 'posts/group_list.html',
             self.post_1_detail_url: 'posts/post_detail.html',
             self.user_1_detail_url: 'posts/profile.html',
+            self.followed_posts: 'posts/follow.html',
         }
 
         for address, template in url_template_names.items():
             with self.subTest(address=address):
                 response = self.authorized_user_1.get(address)
-                self.assertEqual(response.status_code, HTTPStatus.OK)
                 self.assertTemplateUsed(response, template)
 
     def test_url_redirect_anonymous(self):
