@@ -13,9 +13,16 @@ class Group(models.Model):
     """Модель группы, к которой может относиться пост."""
 
     title = models.CharField(
-        max_length=200, verbose_name='Название')
-    slug = models.SlugField(unique=True, verbose_name='URL')
-    description = models.TextField(verbose_name='Описание')
+        max_length=200,
+        verbose_name='Название',
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='URL',
+    )
+    description = models.TextField(
+        verbose_name='Описание',
+    )
 
     class Meta:
         """Метаданные."""
@@ -33,7 +40,8 @@ class Post(CreatedModel):
 
     text: models.TextField = models.TextField(
         verbose_name='Текст поста',
-        help_text='Введите текст поста',)
+        help_text='Введите текст поста',
+    )
     author: Type[AbstractBaseUser] = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -58,7 +66,7 @@ class Post(CreatedModel):
     class Meta:
         """Метаданные."""
 
-        ordering: Tuple[str] = ('-created', )
+        ordering: Tuple[str] = ('-created',)
         verbose_name: str = 'Пост'
         verbose_name_plural: str = 'Посты'
 
@@ -68,7 +76,10 @@ class Post(CreatedModel):
 
     def get_absolute_url(self):
         """Получение URL деталей поста."""
-        return reverse('posts:post_detail', kwargs={'post_id': self.id, })
+        return reverse(
+            'posts:post_detail',
+            kwargs={'post_id': self.id, }
+        )
 
 
 class Comment(CreatedModel):

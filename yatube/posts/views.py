@@ -46,12 +46,9 @@ def profile(request: HttpRequest, username: str) -> HttpResponse:
     author: Union[AbstractBaseUser, AnonymousUser] = get_object_or_404(
         User, username=username)
     posts: QuerySet = author.posts.select_related('group')
-    following: bool = False
-    if (request.user.is_authenticated
-        and Follow.objects.filter(user=request.user,
-                                  author=author,
-                                  ).exists()):
-        following = True
+    following: bool = request.user.is_authenticated and Follow.objects.filter(
+        user=request.user, author=author
+    ).exists()
 
     context: Dict = {
         'page_obj': get_page_obj(request, posts),
