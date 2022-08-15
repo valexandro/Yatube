@@ -152,7 +152,7 @@ def profile_follow(request, username):
             user=request.user,
             author=user_to_subscribe,
         )
-    return profile(request, username)
+    return redirect('posts:profile', username=username)
 
 
 @login_required
@@ -164,5 +164,4 @@ def profile_unfollow(request, username):
         author=get_object_or_404(User, username=username)
     )
     follow_instance.delete()
-
-    return profile(request, username)
+    return redirect('posts:profile', username=username)
