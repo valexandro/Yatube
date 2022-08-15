@@ -152,3 +152,5 @@ yatube/media/
 
 flake8_reqs.txt
 pyproject.toml
+requirements.txt
+yatube.zip
