@@ -5,6 +5,7 @@
         {{ comment.author.username }}
       </a>
     </h5>
+    <i>{{ comment.created|date:"M d, Y H:i" }}</i>
     <p>{{ comment.text }}</p>
   </div>
 </div>

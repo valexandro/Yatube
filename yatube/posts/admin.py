@@ -26,5 +26,5 @@ class GroupAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     """Настройка отображения комментариев в админке."""
 
-    list_display = ('text', 'author',)
+    list_display = ('text', 'author', 'created',)
     empty_value_display = '-пусто-'

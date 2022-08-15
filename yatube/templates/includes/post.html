@@ -2,16 +2,31 @@
 <article>
   <ul>
     <li>
-      Автор: {{ post.author.get_full_name }}
-      <a href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
+      Автор:
+      {% if post.author.get_full_name %}
+        <a class="text-decoration-none"
+           href="{% url 'posts:profile' post.author.username %}">{{ post.author.get_full_name }}</a>
+      {% else %}
+        <a class="text-decoration-none"
+           href="{% url 'posts:profile' post.author.username %}">{{ post.author.get_username }}</a>
+      {% endif %}
     </li>
-    <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
+    {% if post.group %}
+      <li>
+        Группа:
+        <a title="все записи группы"
+           class="text-decoration-none"
+           href="{% url 'posts:group_list' post.group.slug %}"> {{ post.group }}</a>
+      </li>
+    {% endif %}
+    <li>Дата публикации: {{ post.created|date:"d E Y" }}</li>
   </ul>
   {% thumbnail post.image "960x339" as im %}
-  <img src="{{ im.url }}" alt="" width="960", height="339">
+  <img src="{{ im.url }}" alt=""/>
 {% endthumbnail %}
 <p>{{ post.text|linebreaksbr }}</p>
-<a href="{% url 'posts:post_detail' post.id %}">подробная информация</a>
-|
-<a href="{% url 'posts:post_edit' post.id %}">редактировать</a>
+<a class="btn btn-outline-primary btn-sm"
+   href="{% url 'posts:post_detail' post.id %}">подробная информация</a>
+<a class="btn btn-outline-dark btn-sm"
+   href="{% url 'posts:post_edit' post.id %}">редактировать</a>
 </article>

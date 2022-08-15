@@ -103,6 +103,12 @@ class Comment(CreatedModel):
         verbose_name='Текст комментария',
     )
 
+    class Meta:
+        """Метаданные."""
+
+        verbose_name: str = 'Комментарий'
+        verbose_name_plural: str = 'Комментарии'
+
 
 class Follow(models.Model):
     """Модель подписок на посты других авторов."""
