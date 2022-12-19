@@ -14,8 +14,8 @@ CACHES = {
 }
 
 ALLOWED_HOSTS = [
-    'www.valexandro.pythonanywhere.com',
-    'valexandro.pythonanywhere.com',
+    '158.160.6.133',
+    'valexandro.hopto.org',
     'localhost',
     '127.0.0.1',
     '[::1]',
@@ -118,3 +118,4 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
