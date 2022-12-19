@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '+pv0epiqj!cd0v9yo9l+jnz1xbamlo%_7ov%sa93=htc$scu3n'
 
-DEBUG = True
+DEBUG = False
 
 CACHES = {
     'default': {
@@ -14,7 +14,6 @@ CACHES = {
 }
 
 ALLOWED_HOSTS = [
-    '158.160.6.133',
     'valexandro.hopto.org',
     'localhost',
     '127.0.0.1',
@@ -48,7 +47,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 ROOT_URLCONF = 'yatube.urls'
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 LOGIN_URL = 'users:login'
