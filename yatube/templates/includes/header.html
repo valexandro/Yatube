@@ -35,6 +35,8 @@
             </a>
           </li>
           {% if request.user.is_authenticated %}
+            {% load cache %}
+            {% cache 20 sidebar request.user.username %}
             <li class="nav-item">
               <a class="nav-link {% if view_name == 'posts:post_create' %}active{% endif %}"
                  href="{% url 'posts:post_create' %}">
@@ -59,6 +61,7 @@
                 {{ user.username }}
               </div>
             </li>
+            {% endcache %}
           {% else %}
             <li class="nav-item">
               <a class="nav-link {% if view_name == 'users:login' %}active{% endif %}"
