@@ -15,6 +15,7 @@ from .utils import get_page_obj
 User: Type[AbstractBaseUser] = get_user_model()
 
 
+@cache_page(20, key_prefix='index_page')
 def index(request: HttpRequest) -> HttpResponse:
     """Обработчик запросов к главной странице сайта."""
     template: str = 'posts/index.html'
@@ -151,7 +152,7 @@ def profile_follow(request, username):
             user=request.user,
             author=user_to_subscribe,
         )
-    return redirect('posts:profile', username=username)
+    return profile(request, username)
 
 
 @login_required
@@ -163,4 +164,5 @@ def profile_unfollow(request, username):
         author=get_object_or_404(User, username=username)
     )
     follow_instance.delete()
-    return redirect('posts:profile', username=username)
+
+    return profile(request, username)

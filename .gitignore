@@ -146,13 +146,11 @@ dmypy.json
 .mypy_cache
 
 # папки со статикой и медиа
+static/
 yatube/posts/static/
 yatube/media/
-yatube/static/
 
 flake8_reqs.txt
 pyproject.toml
 requirements.txt
 yatube.zip
-yatube/dump.json
-*.save
