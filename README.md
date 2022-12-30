@@ -1,3 +1,16 @@
-# hw05_final
+# Yatube (учебный проект)
 
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+Учебный проект, сделаный в рамках курса `"Python разработчик"` (Яндекс.Практикум).
+Платформа для блогов с возможностью регистрации, подписок на авторов, группами и комментариями.
+
+## Технологии
+- Python 3.7
+- Django 2.2.16
+- DRF
+- PostgreSQL
+- JQuery
+- Bootstrap
+## Инструменты
+- VS Code
+- Git
+- Bash (WSL)
