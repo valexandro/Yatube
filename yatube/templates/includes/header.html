@@ -1,4 +1,5 @@
 {% load static %}
+{% load cache %}
 {% with request.resolver_match.view_name as view_name %}
   <nav class="navbar navbar-expand-lg navbar-light"
        style="background-color: lightskyblue">
@@ -35,6 +36,7 @@
             </a>
           </li>
           {% if request.user.is_authenticated %}
+          {% cache 20 header request.user.username %}
             <li class="nav-item">
               <a class="nav-link {% if view_name == 'posts:post_create' %}active{% endif %}"
                  href="{% url 'posts:post_create' %}">
@@ -59,6 +61,7 @@
                 {{ user.username }}
               </div>
             </li>
+          {% endcache %}
           {% else %}
             <li class="nav-item">
               <a class="nav-link {% if view_name == 'users:login' %}active{% endif %}"

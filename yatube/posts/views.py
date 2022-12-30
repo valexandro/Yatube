@@ -15,7 +15,6 @@ from .utils import get_page_obj
 User: Type[AbstractBaseUser] = get_user_model()
 
 
-@cache_page(20, key_prefix='index_page')
 def index(request: HttpRequest) -> HttpResponse:
     """Обработчик запросов к главной странице сайта."""
     template: str = 'posts/index.html'
